@@ -49,9 +49,9 @@ def _get_value(
 def load_settings() -> Settings:
     options = _load_options()
     return Settings(
-        client_id=_get_value(options, "client_id", "GPHOTOS_CLIENT_ID"),
-        client_secret=_get_value(options, "client_secret", "GPHOTOS_CLIENT_SECRET"),
-        refresh_token=_get_value(options, "refresh_token", "GPHOTOS_REFRESH_TOKEN"),
+        client_id=_get_value(options, "client_id", "GOOGLE_CLIENT_ID"),
+        client_secret=_get_value(options, "client_secret", "GOOGLE_CLIENT_SECRET"),
+        refresh_token=_get_value(options, "refresh_token", "GOOGLE_REFRESH_TOKEN"),
         drive_folder_id=_get_value(options, "drive_folder_id", "DRIVE_FOLDER_ID", ""),
         drive_include_shared=_get_value(
             options, "drive_include_shared", "DRIVE_INCLUDE_SHARED", "false"

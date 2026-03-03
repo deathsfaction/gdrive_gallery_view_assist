@@ -52,8 +52,8 @@ This repo includes a helper script you can run on your desktop to generate a ref
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r tools/requirements.txt
-export GPHOTOS_CLIENT_ID="..."
-export GPHOTOS_CLIENT_SECRET="..."
+export GOOGLE_CLIENT_ID="..."
+export GOOGLE_CLIENT_SECRET="..."
 export OAUTH_SCOPE="https://www.googleapis.com/auth/drive.readonly"
 python tools/google_oauth_helper.py
 ```

@@ -46,12 +46,12 @@ def run_local_server(port: int) -> socketserver.TCPServer:
 
 
 def main() -> None:
-    client_id = os.getenv("GPHOTOS_CLIENT_ID")
-    client_secret = os.getenv("GPHOTOS_CLIENT_SECRET")
+    client_id = os.getenv("GOOGLE_CLIENT_ID")
+    client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
     if not client_id or not client_secret:
-        raise SystemExit("Set GPHOTOS_CLIENT_ID and GPHOTOS_CLIENT_SECRET")
+        raise SystemExit("Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET")
 
-    port = int(os.getenv("GPHOTOS_REDIRECT_PORT", "8123"))
+    port = int(os.getenv("GOOGLE_REDIRECT_PORT", "8123"))
     redirect_uri = f"http://127.0.0.1:{port}/oauth2callback"
     state = "gphotos-view-assist"
 
