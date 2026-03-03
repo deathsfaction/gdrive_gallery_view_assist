@@ -16,6 +16,10 @@
 
 - Return human-readable last refresh time in /health.
 
+## 0.4.9
+
+- Update GitHub URLs for new username.
+
 ## 0.4.4
 
 - Document changelog usage.
