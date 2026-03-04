@@ -24,11 +24,7 @@ Drive folder ID tip: open the folder in Google Drive and copy the ID from the UR
 Resize profile example:
 
 ```yaml
-resize_profiles:
-  - name: echo5
-    width: 960
-    height: 480
-    mode: cover
+resize_profiles: "[{\"name\":\"echo5\",\"width\":960,\"height\":480,\"mode\":\"cover\"}]"
 ```
 
 - `mode`: `random` or `sequential`

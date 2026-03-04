@@ -49,6 +49,14 @@ def _get_value(
 
 def _parse_resize_profiles(options: dict) -> dict[str, dict]:
     profiles = options.get("resize_profiles")
+    if isinstance(profiles, str):
+        profiles = profiles.strip()
+        if not profiles:
+            return {}
+        try:
+            profiles = json.loads(profiles)
+        except json.JSONDecodeError:
+            return {}
     if not isinstance(profiles, list):
         return {}
     parsed: dict[str, dict] = {}

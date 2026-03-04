@@ -66,11 +66,7 @@ python tools/google_oauth_helper.py
 You can define named profiles and request them as `/image/{profile}`:
 
 ```yaml
-resize_profiles:
-  - name: echo5
-    width: 960
-    height: 480
-    mode: cover
+resize_profiles: "[{\"name\":\"echo5\",\"width\":960,\"height\":480,\"mode\":\"cover\"}]"
 ```
 
 ## Drive Folder ID

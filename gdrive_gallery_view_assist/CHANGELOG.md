@@ -24,6 +24,10 @@
 
 - Add resize profiles with `/image/{profile}` endpoints.
 
+## 0.5.2
+
+- Fix add-on schema for resize profiles.
+
 ## 0.4.4
 
 - Document changelog usage.

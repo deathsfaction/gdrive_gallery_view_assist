@@ -1,7 +1,7 @@
 name: GoogleDrive Gallery for View Assist
 slug: gdrive_gallery_view_assist
 description: Serve Google Drive folder images for View Assist backgrounds
-version: 0.5.1
+version: 0.5.2
 url: https://github.com/revidm/gdrive_gallery_view_assist
 startup: services
 boot: auto
@@ -28,7 +28,7 @@ options:
   cache_max_mb: 0
   prefetch_next: false
   daily_shuffle: false
-  resize_profiles: []
+  resize_profiles: ""
   port: 8099
   refresh_interval_minutes: 30
   max_items: 500
@@ -46,7 +46,7 @@ schema:
   cache_max_mb: int
   prefetch_next: bool
   daily_shuffle: bool
-  resize_profiles: list
+  resize_profiles: str
   port: int
   refresh_interval_minutes: int
   max_items: int
