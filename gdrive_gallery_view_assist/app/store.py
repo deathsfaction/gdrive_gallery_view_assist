@@ -2,8 +2,10 @@ import asyncio
 import random
 import time
 from dataclasses import dataclass
+from io import BytesIO
 import fnmatch
 from datetime import date
+from PIL import Image
 
 from .google_drive import GoogleDriveClient, DriveItem
 
@@ -34,6 +36,10 @@ class ItemStore:
         cache_max_mb: int,
         prefetch_next: bool,
         daily_shuffle: bool,
+        resize_enabled: bool,
+        resize_width: int,
+        resize_height: int,
+        resize_mode: str,
         refresh_interval_minutes: int,
         max_items: int,
         mode: str,
@@ -52,6 +58,10 @@ class ItemStore:
         self._cache_max_mb = cache_max_mb
         self._prefetch_next = prefetch_next
         self._daily_shuffle = daily_shuffle
+        self._resize_enabled = resize_enabled
+        self._resize_width = resize_width
+        self._resize_height = resize_height
+        self._resize_mode = resize_mode
         self._refresh_interval = refresh_interval_minutes * 60
         self._max_items = max_items
         self._mode = mode
@@ -101,6 +111,8 @@ class ItemStore:
             if cached:
                 return cached
         content, content_type = await self._drive_client.download_file(item.id)
+        if self._resize_enabled:
+            content, content_type = self._resize_image(content, content_type)
         cached = CachedImage(
             content=content, content_type=content_type, fetched_at=time.time()
         )
@@ -191,3 +203,29 @@ class ItemStore:
     def _evict_one(self) -> None:
         item_id, cached = self._image_cache.popitem()
         self._cache_bytes = max(self._cache_bytes - len(cached.content), 0)
+
+    def _resize_image(self, content: bytes, content_type: str) -> tuple[bytes, str]:
+        try:
+            image = Image.open(BytesIO(content))
+        except Exception:
+            return content, content_type
+        target_size = (self._resize_width, self._resize_height)
+        if self._resize_mode == "stretch":
+            resized = image.resize(target_size, Image.LANCZOS)
+        else:
+            resized = image.copy()
+            resized.thumbnail(target_size, Image.LANCZOS)
+            if self._resize_mode == "cover":
+                background = Image.new("RGB", target_size)
+                offset = (
+                    (target_size[0] - resized.width) // 2,
+                    (target_size[1] - resized.height) // 2,
+                )
+                background.paste(resized, offset)
+                resized = background
+        output = BytesIO()
+        format_name = "JPEG" if content_type == "image/jpeg" else image.format or "JPEG"
+        if format_name == "JPEG":
+            resized = resized.convert("RGB")
+        resized.save(output, format=format_name)
+        return output.getvalue(), f"image/{format_name.lower()}"

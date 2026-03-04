@@ -30,6 +30,10 @@ Home Assistant add-on that exposes a simple `/image` endpoint which serves a ran
 - `cache_max_mb`: max cache size in MB (0 = unlimited).
 - `prefetch_next`: download the next image in advance.
 - `daily_shuffle`: shuffle images in a stable daily order.
+- `resize_enabled`: resize images before serving.
+- `resize_width`: target width (default 960).
+- `resize_height`: target height (default 480).
+- `resize_mode`: `cover`, `contain`, or `stretch`.
 - `mode`: `random` or `sequential`.
 - `refresh_interval_minutes`: refresh album list on this interval.
 - `max_items`: max images to keep in memory.

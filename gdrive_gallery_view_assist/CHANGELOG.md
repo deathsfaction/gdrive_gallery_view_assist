@@ -20,6 +20,10 @@
 
 - Update GitHub URLs for new username.
 
+## 0.5.0
+
+- Add optional image resize settings for display scaling.
+
 ## 0.4.4
 
 - Document changelog usage.

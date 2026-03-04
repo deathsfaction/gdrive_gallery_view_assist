@@ -20,6 +20,10 @@ class Settings:
     cache_max_mb: int
     prefetch_next: bool
     daily_shuffle: bool
+    resize_enabled: bool
+    resize_width: int
+    resize_height: int
+    resize_mode: str
     port: int
     refresh_interval_minutes: int
     max_items: int
@@ -80,6 +84,13 @@ def load_settings() -> Settings:
             options, "daily_shuffle", "DAILY_SHUFFLE", "false"
         ).lower()
         == "true",
+        resize_enabled=_get_value(
+            options, "resize_enabled", "RESIZE_ENABLED", "false"
+        ).lower()
+        == "true",
+        resize_width=int(_get_value(options, "resize_width", "RESIZE_WIDTH", "960")),
+        resize_height=int(_get_value(options, "resize_height", "RESIZE_HEIGHT", "480")),
+        resize_mode=_get_value(options, "resize_mode", "RESIZE_MODE", "cover"),
         port=int(_get_value(options, "port", "PORT", "8099")),
         refresh_interval_minutes=int(
             _get_value(
