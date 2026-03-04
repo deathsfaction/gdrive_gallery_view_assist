@@ -36,6 +36,10 @@
 
 - Remove unused labels and descriptions from config.
 
+## 0.5.5
+
+- Add add-on icon.
+
 ## 0.4.4
 
 - Document changelog usage.
