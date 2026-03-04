@@ -32,6 +32,10 @@
 
 - Mark secrets as password fields and add friendly labels.
 
+## 0.5.4
+
+- Remove unused labels and descriptions from config.
+
 ## 0.4.4
 
 - Document changelog usage.
