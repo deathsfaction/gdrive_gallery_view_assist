@@ -1,4 +1,5 @@
 import asyncio
+import os
 import random
 import time
 from dataclasses import dataclass
@@ -135,6 +136,7 @@ class ItemStore:
             fetched_at = self._drive_cache.fetched_at if self._drive_cache else None
             cache_items = len(self._image_cache)
             cache_bytes = self._cache_bytes
+            data_dir_bytes = self._get_directory_size("/data")
         return {
             "item_count": item_count,
             "last_refresh": fetched_at,
@@ -145,7 +147,22 @@ class ItemStore:
             else None,
             "cache_items": cache_items,
             "cache_bytes": cache_bytes,
+            "data_dir_bytes": data_dir_bytes,
+            "data_dir_mb": round(data_dir_bytes / (1024 * 1024), 2),
         }
+
+    def _get_directory_size(self, path: str) -> int:
+        if not os.path.isdir(path):
+            return 0
+        total = 0
+        for root, _, files in os.walk(path):
+            for name in files:
+                file_path = os.path.join(root, name)
+                try:
+                    total += os.path.getsize(file_path)
+                except OSError:
+                    continue
+        return total
 
     async def _prefetch(self, items: list[DriveItem], profile_name: str | None) -> None:
         if not items:

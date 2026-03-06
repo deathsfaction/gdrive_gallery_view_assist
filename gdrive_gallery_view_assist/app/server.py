@@ -53,6 +53,8 @@ async def health() -> dict:
         "last_refresh": status["last_refresh_iso"],
         "cache_items": status["cache_items"],
         "cache_bytes": status["cache_bytes"],
+        "data_dir_bytes": status["data_dir_bytes"],
+        "data_dir_mb": status["data_dir_mb"],
     }
 
 
